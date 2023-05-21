@@ -14,9 +14,9 @@ export function ImageGalleryItem ({  src, alt, onOpen }) {
 
 ImageGalleryItem.propTypes = {
     image: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
-      }).isRequired,
-      onOpen: PropTypes.func.isRequired,
+        src: PropTypes.string,
+        alt: PropTypes.string,
+      }),
+      onOpen: PropTypes.func,
 }
 

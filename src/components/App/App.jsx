@@ -28,7 +28,7 @@ export const App = () => {
           setImages((prevImages) => [...prevImages, ...images]);
           setShowLoadMore(page < Math.ceil(totalHits / 12));
         })
-        .catch((error) => {
+        .catch(() => {
           setError(true);
           console.error('Error:', error);
         })

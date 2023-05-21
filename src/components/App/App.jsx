@@ -8,10 +8,8 @@ import { Modal } from 'components/Modal/Modal';
 
 export const App = () => {
   const [name, setName] = useState('');
-  // const [prevName, setPrevName] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
-  // const [prevPage, setPrevPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showLoadMore, setShowLoadMore] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +33,7 @@ export const App = () => {
         .finally(() => {
           setIsLoading(false);
         });
-  }, [name, page]);
+  }, [name, page, error]);
 
   const handleFormSubmit = (name) => {
     console.log(name);

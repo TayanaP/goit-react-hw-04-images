@@ -29,6 +29,7 @@ export const App = () => {
         })
         .catch((error) => {
           setError(true);
+          console.error('Error:', error);
         })
         .finally(() => {
           setIsLoading(false);

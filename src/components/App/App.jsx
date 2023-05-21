@@ -8,10 +8,10 @@ import { Modal } from 'components/Modal/Modal';
 
 export const App = () => {
   const [name, setName] = useState('');
-  const [prevName, setPrevName] = useState('');
+  // const [prevName, setPrevName] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
-  const [prevPage, setPrevPage] = useState(1);
+  // const [prevPage, setPrevPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showLoadMore, setShowLoadMore] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -19,25 +19,22 @@ export const App = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (name !== '' && (page === 1 || (name !== prevName || page !== prevPage))) {
+    if (!name) return;
       setIsLoading(true);
+
       fetchImages(name, page)
         .then(({ totalHits, images }) => {
           console.log(images);
           setImages((prevImages) => [...prevImages, ...images]);
           setShowLoadMore(page < Math.ceil(totalHits / 12));
         })
-        .catch(() => {
+        .catch((error) => {
           setError(true);
           console.error('Error:', error);
         })
         .finally(() => {
           setIsLoading(false);
         });
-    }
-
-    setPrevName(name);
-    setPrevPage(page);
   }, [name, page]);
 
   const handleFormSubmit = (name) => {
@@ -70,3 +67,4 @@ export const App = () => {
     </div>
   );
 };
+

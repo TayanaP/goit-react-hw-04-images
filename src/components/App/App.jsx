@@ -5,6 +5,7 @@ import { ImageGallery} from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+import {ErrorMessage} from 'components/ErrorMessage/ErrorMessage'
 
 export const App = () => {
   const [name, setName] = useState('');
@@ -22,21 +23,23 @@ export const App = () => {
 
       fetchImages(name, page)
         .then(({ totalHits, images }) => {
-          console.log(images);
           setImages((prevImages) => [...prevImages, ...images]);
           setShowLoadMore(page < Math.ceil(totalHits / 12));
         })
-        .catch(() => {
+        .catch((error) => {
+          handleError(error.message)
           setError(true);
-          console.error('Error:', error);
         })
         .finally(() => {
           setIsLoading(false);
         });
-  }, [name, page, error]);
+  }, [name, page]);
+
+  const handleError = message => {
+    setError(message);
+  }
 
   const handleFormSubmit = (name) => {
-    console.log(name);
     setName(name);
     setPage(1);
     setImages([]);
@@ -61,6 +64,7 @@ export const App = () => {
       <ImageGallery images={images} onOpen={onOpen} />
       {showLoadMore && <Button onClick={handleLoadMore}>Load more</Button>}
       <Loader visible={isLoading} />
+      {error && <ErrorMessage error={error} />}
       {showModal && <Modal src={modalImage.src} alt={modalImage.alt} onClose={onClose} />}
     </div>
   );
